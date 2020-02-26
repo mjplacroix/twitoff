@@ -17,8 +17,14 @@ def predict_user(user1_name, user2_name, tweet_text, cache=None):
         user1_embeddings = np.array([tweet.embedding for tweet in user1.tweets])
         user2_embeddings = np.array([tweet.embedding for tweet in user2.tweets])
         embeddings = np.vstack([user1_embeddings, user2_embeddings])
+        print("Embeddings", embeddings)
+                                # changed second line from np.ones to np.zeros
+                                # Previous error --  ValueError: This solver needs samples of at least 
+                                # 2 classes in the data, but the data contains only one class: 1.0   
+                                # Try --  import pdb; pdb.set_trace() -- as well  
         labels = np.concatenate([np.ones(len(user1.tweets)),
-                                 np.ones(len(user2.tweets))])
+                                 np.zeros(len(user2.tweets))])
+        print("Labels: ", labels)
         log_reg = LogisticRegression().fit(embeddings, labels)
         cache and cache.set(user_set, pickle.dumps(log_reg))
     tweet_embedding = BASILICA.embed_sentence(tweet_text, model='twitter')
