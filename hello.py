@@ -11,10 +11,10 @@ app = Flask(__name__)
 def hello():
     return "Hello World!!"
 
-# make second route
-@app.route("/about")
+# # make second route
+# @app.route("/about")
 
-# func for about
-def preds():
-    return render_template('about.html')
+# # func for about
+# def preds():
+#     return render_template('about.html')
 

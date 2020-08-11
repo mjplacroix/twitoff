@@ -1,6 +1,6 @@
 """Code for our app"""
 
-from decouple import config
+# from decouple import config
 from flask import Flask, render_template, request
 from .models import DB, User
 from .predict import predict_user
@@ -21,10 +21,13 @@ def create_app():
     @app.route('/')
     def root():
         users = User.query.all()
-        return render_template('base.html', title= 'Homie', users=users)
+        return render_template('base.html', title= 'Home', users=users)
 
+    # why are both of these lines here?
+    # why aren't they combined?
     @app.route('/user', methods=['POST'])
     @app.route('/user/<name>', methods=['GET'])
+    # why are we passing "name=None" instead of just "name" and assigning it within the function?
     def user(name=None, message=''):
         name = name or request.values['user_name']
         try:
